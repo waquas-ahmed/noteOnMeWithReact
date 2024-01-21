@@ -22,6 +22,22 @@ function reducer(state, action) {
       return { ...state, resData: action.payload };
     case "createdTask":
       return { ...state, resData: [...state.resData, action.payload] };
+    case "updatedTask":
+      return {
+        ...state,
+        resData: [
+          ...state.resData.map((task) => {
+            if (task.id === action.payload.id) {
+              return {
+                description: action.payload.description,
+                id: action.payload.id,
+                taskName: action.payload.taskName,
+              };
+            }
+            return task;
+          }),
+        ],
+      };
     case "deletedTask":
       return {
         ...state,
@@ -46,7 +62,7 @@ function TaskContext({ children }) {
         try {
           const res = await axios({
             // Endpoint to send files
-            url: "http://localhost:8000/tasks/",
+            url: "https://noteonme-react.onrender.com/tasks/",
             method: "GET",
           });
           dispatch({ type: "allTask", payload: res.data });
@@ -56,14 +72,14 @@ function TaskContext({ children }) {
       }
       getTasks();
     },
-    [openUpdateForm, showTaskForm]
+    [openUpdateForm, showTaskForm, setOpenUpdateForm]
   );
 
   const getTask = useCallback(async function getTask(id) {
     try {
       const res = await axios({
         // Endpoint to send files
-        url: `http://localhost:8000/tasks/${id}`,
+        url: `https://noteonme-react.onrender.com/tasks/${id}`,
         method: "GET",
       });
       setResDataTask(res.data);
@@ -77,12 +93,11 @@ function TaskContext({ children }) {
     try {
       const res = await axios({
         // Endpoint to send files
-        url: "http://localhost:8000/tasks/",
+        url: "https://noteonme-react.onrender.com/tasks/",
         method: "POST",
         data: JSON.stringify(newTask),
       });
       dispatch({ type: "createdTask", payload: res.data });
-      //   setResData((tasks) => [...tasks, res.data]);
     } catch {
       toast.error("Something Went very wrong (from creating), try again later");
     }
@@ -90,12 +105,14 @@ function TaskContext({ children }) {
 
   const updateTask = useCallback(async function (task, id) {
     try {
-      await axios({
+      const res = await axios({
         // Endpoint to send files
-        url: `http://localhost:8000/tasks/${id}`,
+        url: `https://noteonme-react.onrender.com/tasks/${id}`,
         method: "PUT",
         data: JSON.stringify(task),
       });
+      console.log(res);
+      dispatch({ type: "updatedTask", payload: res.data });
     } catch {
       toast.error("Something Went very wrong (from update) , try again later");
     }
@@ -105,12 +122,13 @@ function TaskContext({ children }) {
     try {
       await axios({
         // Endpoint to send files
-        url: `http://localhost:8000/tasks/${id}`,
+        url: `https://noteonme-react.onrender.com/tasks/${id}`,
         method: "DELETE",
       });
-      //   setResData((tasks) => tasks.filter((task) => task.id !== id));
       dispatch({ type: "deletedTask", payload: id });
-    } catch {}
+    } catch {
+      toast.error("Something Went very wrong while deleting , try again later");
+    }
   }, []);
 
   const value = useMemo(() => {
