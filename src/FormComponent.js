@@ -59,7 +59,6 @@ const Form = styled.form`
   display: grid;
   justify-content: center;
   margin: auto;
-  /* margin-top: 5rem; */
 `;
 
 const Button = styled.button`
