@@ -1,29 +1,9 @@
 {
   "tasks": [
     {
-      "taskName": "JavaScript framework??",
-      "description": "JavaScript f react is one of thereact is one of the polular javascript framwork",
+      "taskName": "JavaScript library??",
+      "description": "JavaScript react is one of best front-end libary which works on the component based structure",
       "id": "11"
-    },
-    {
-      "taskName": "popular JavaScript framework?",
-      "description": "hey I am here....",
-      "id": "20af"
-    },
-    {
-      "taskName": "waquas",
-      "description": "I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....I am here ahmed....",
-      "id": "7f46"
-    },
-    {
-      "taskName": "this is the new task which I supposed to add here",
-      "description": "haha everything is done and seems like I need to do optimization and will add reducer.",
-      "id": "58e8"
-    },
-    {
-      "taskName": "my name is waquas",
-      "description": "and i am adding my todo things here and I supposed to finish off with a day",
-      "id": "97e8"
     }
   ]
 }
